@@ -5,34 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuevo servidor</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        #chat-container {
+            width: 300px; /* Anchura predeterminada */
+            height: 400px; /* Altura predeterminada */
+            border: 1px solid #ccc; /* Borde */
+            background-color: white; /* Color de fondo blanco */
+            overflow-y: auto; /* Agregar barra de desplazamiento vertical si es necesario */
+            padding: 10px; /* Agregar relleno */
+            margin-bottom: 30px; /* Agregar margen inferior */
+        }
+    </style>
 </head>
 <body>
     <h1>2Comunicate</h1>
+    <div id="chat-container">
+        <ul id="messages"></ul>
+    </div>
+    <input type="text" id="username" placeholder="Ingresa tu nombre de usuario">
     <input type="text" id="message" placeholder="Escribe un mensaje">
     <button id="send">Enviar</button>
-    <ul id="messages"></ul>
     <script>
         const socket = new WebSocket('ws://localhost:8080');
+        const usernameInput = document.getElementById('username'); // Nuevo input para el nombre de usuario
         const message = document.getElementById('message');
         const messages = document.getElementById('messages');
+        const chatContainer = document.getElementById('chat-container');
         const send = document.getElementById('send');
 
-        send.addEventListener('click', () => {
-            const msg = message.value.trim();
-            if (msg !== '') {
-                const li = document.createElement('li');
-                li.textContent = msg;
-                messages.appendChild(li);
-                socket.send(msg);
-                message.value = '';
+        send.addEventListener('click', sendMessage);
+
+        message.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
             }
         });
+
+        function sendMessage() {
+            const msg = message.value.trim();
+            const username = usernameInput.value.trim(); // Obtener el nombre de usuario
+            if (msg !== '' && username !== '') { // Verificar si hay un nombre de usuario
+                const li = document.createElement('li');
+                const span = document.createElement('span');
+                span.textContent = username + ': '; // Utilizar el nombre de usuario en lugar de "Usuario"
+                span.style.fontWeight = 'bold';
+                span.style.color = 'black';
+                li.appendChild(span);
+                li.textContent += msg;
+                li.style.color = '#777';
+                messages.appendChild(li);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                socket.send(username + ': ' + msg); // Enviar el mensaje con el nombre de usuario
+                message.value = '';
+            }
+        }
 
         socket.addEventListener('message', (event) => {
             const msg = event.data;
             const li = document.createElement('li');
             li.textContent = msg;
             messages.appendChild(li);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
         });
     </script>
 </body>
