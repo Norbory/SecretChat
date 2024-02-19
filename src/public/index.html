@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo servidor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>2Comunicate</h1>
+    <input type="text" id="message" placeholder="Escribe un mensaje">
+    <button id="send">Enviar</button>
+    <ul id="messages"></ul>
+    <script>
+        const socket = new WebSocket('ws://localhost:8080');
+        const message = document.getElementById('message');
+        const messages = document.getElementById('messages');
+        const send = document.getElementById('send');
+
+        send.addEventListener('click', () => {
+            const msg = message.value.trim();
+            if (msg !== '') {
+                const li = document.createElement('li');
+                li.textContent = msg;
+                messages.appendChild(li);
+                socket.send(msg);
+                message.value = '';
+            }
+        });
+
+        socket.addEventListener('message', (event) => {
+            const msg = event.data;
+            const li = document.createElement('li');
+            li.textContent = msg;
+            messages.appendChild(li);
+        });
+    </script>
+</body>
+</html>
