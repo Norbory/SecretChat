@@ -1,9 +1,7 @@
 const socket = io();
 
-export const loadnotes = () => {
-    socket.on('loadnotes', (notes) => {
-        console.log(notes);
-    });
+export const loadnotes = (callback) => {
+    socket.on('loadnotes', callback);
 };
 
 export const saveNote = (title, description) => {
