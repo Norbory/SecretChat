@@ -1,4 +1,5 @@
+// Export MONGODB_URI
 import {config} from 'dotenv';
-config()
 
-console.log(process.env.MONGODB_URI)
+config()
+export const MONGODB_URI = process.env.MONGODB_URI
