@@ -1,13 +1,14 @@
 import { Schema, model } from "mongoose";
 
 const schema = new Schema({
-    title:{
+    title: {
         type: String,
         required: true
     },
-    description:{
+    description: {
         type: String
-    },
+    }
+}, {
     timestamps: true
 });
 

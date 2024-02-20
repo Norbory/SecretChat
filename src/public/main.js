@@ -1,3 +1,6 @@
-const socket = io();
+import { loadnotes } from "./sockets.js";
+import { onHandleSubmit} from "./ui.js";
 
-console.log(socket);
+loadnotes();
+const noteForm = document.getElementById('noteForm');
+noteForm.addEventListener('submit', onHandleSubmit);
