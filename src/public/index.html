@@ -8,12 +8,7 @@
     <style>
         /* Estilos para el formulario en la parte inferior */
         #formContainer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
             width: 100%;
-            padding: 20px;
-            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
         }
 
         /* Limitar la altura del textarea */
@@ -43,15 +38,17 @@
 </head>
 <body class="bg-gradient-to-b from-pink-200 to-blue-200 min-h-screen flex flex-col items-center justify-center">
     <h1 class="text-5xl font-bold text-gray-800 mb-8 font-serif">Notes</h1>
-    <div id="notes" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-11/12 h-96 overflow-y-auto">
+    <div class="flex flex-col lg:flex-row w-11/12">
+        <div id="notes" class="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full h-96 overflow-y-auto lg:w-3/5 lg:self-center lg:order-1">
 
-    </div>
-    <div id="formContainer" class="max-w-md sm:max-w-md w-full bg-white p-4 rounded-t-lg shadow-md">
-        <form id="noteForm" class="flex flex-col">
-            <input id="title" type="text" placeholder="Title" class="p-2 border border-gray-300 rounded-lg mb-2">
-            <textarea id="description" rows="3" placeholder="Description" class="p-2 border border-gray-300 rounded-lg mb-2"></textarea>
-            <button class="bg-green-500 text-white py-2 px-4 rounded-lg self-start h-10">SEND</button>
-        </form>
+        </div>
+        <div id="formContainer" class="max-w-sm sm:max-w-md w-full bg-white p-4 rounded-md shadow-md lg:w-2/5 lg:self-center lg:order-2 self-center lg:my-0 my-12 lg:ml-20 ml-0">
+            <form id="noteForm" class="flex flex-col">
+                <input id="title" type="text" placeholder="Title" class="p-2 border border-gray-300 rounded-lg mb-2">
+                <textarea id="description" rows="3" placeholder="Description" class="p-2 border border-gray-300 rounded-lg mb-2"></textarea>
+                <button class="bg-green-500 text-white py-2 px-4 rounded-lg self-start h-10">SEND</button>
+            </form>
+        </div>
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="./main.js" type="module"></script>
