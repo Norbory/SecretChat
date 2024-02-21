@@ -5,17 +5,33 @@ export default (io) => {
     io.on('connection', (socket) => {
         
         const emitNotes = async () => {
-            const notes = await Note.find()
-            
-            io.emit('loadnotes', notes)
+            const notes = await Note.find();
+            io.emit('server:loadnotes', notes)
         };
         emitNotes();
 
-        socket.on('newnote', async (note) => {
+        socket.on('client:newnote', async (note) => {
             const newNote = new Note(note);
             const savedNote = await newNote.save();
-            console.log(savedNote);
+            io.emit('server:newnote', savedNote);
+        });
+
+        socket.on('client:deletenote', async (id) => {
+            await Note.findByIdAndDelete(id);
+            emitNotes();
         });
     
+        socket.on('client:getnote', async (id) => {
+            const note = await Note.findById(id);
+            socket.emit('server:selectednote', note);
+        });
+
+        socket.on('client:updatenote', async (updateNote) => {
+            await Note.findByIdAndUpdate(updateNote._id, {
+                title: updateNote.title,
+                description: updateNote.description
+            })
+            emitNotes();
+        });
     });
 };
