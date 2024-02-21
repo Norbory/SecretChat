@@ -1,3 +1,11 @@
+/* Importa Tailwind CSS */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Tu propio CSS personalizado */
+/* Aquí puedes añadir estilos adicionales si es necesario */
+
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -7,45 +15,4 @@ body {
     align-items: center;
     justify-content: center;
     background: linear-gradient(to bottom, #f8d5e3, #dbe9f7);
-}
-
-h1 {
-    text-align: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-input[type="text"] {
-    padding: 8px;
-    margin-bottom: 8px;
-    width: 300px;
-    border-radius: 4px;
-}
-
-button {
-    padding: 8px 16px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    padding: 4px 8px;
-    border-bottom: 1px solid #ccc;
-    width: 300px;
-    border-radius: 8px;
-}
-
-li:last-child {
-    border-bottom: none;
 }

@@ -8,18 +8,20 @@ let saveId = '';
 
 const noteUI = note => {
     const div = document.createElement('div');
+    div.classList.add('border', 'border-gray-300', 'rounded-md', 'p-4', 'mb-4', 'bg-white', 'shadow-md', 'w-full', 'h-auto'); // Agregamos 'w-full' para que ocupe todo el ancho
+
     div.innerHTML = `
     <div>
-        <h1>${note.title}</h1>
-        <div>
-            <button class="delete" data-id="${note._id}">Delete</button>
-            <button class="update" data-id="${note._id}">Update</button>
+        <h1 class="text-2xl font-semibold mb-2">${note.title}</h1>
+        <div class="flex gap-2">
+            <button class="bg-red-500 text-white py-1 px-2 rounded-md delete" data-id="${note._id}">Delete</button>
+            <button class="bg-blue-500 text-white py-1 px-2 rounded-md update" data-id="${note._id}">Update</button>
         </div>
-        <p>${note.description}</p>
+        <p class="text-gray-600">${note.description}</p>
     </div>
     `;
 
-    const btnDelete= div.querySelector('.delete');
+    const btnDelete = div.querySelector('.delete');
     const btnUpdate = div.querySelector('.update');
 
     btnDelete.addEventListener('click', e => deleteNote(btnDelete.dataset.id));
